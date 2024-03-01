@@ -13,7 +13,7 @@ warn_unused_configs = true
 [tool.poetry]
 name = "markupify"
 packages = [{ include = "markupify" }]
-version = "0.0.1"
+version = "1.0.0"
 description = "A simple HTML5 generator based-on Python's OOP"
 authors = ["ChogirmaliYigit <chogirmali.yigit@gmail.com>"]
 license = "MIT"
