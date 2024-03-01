@@ -1,0 +1,20 @@
+fail_fast: true
+repos:
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: poetry run black --check markupify/
+        language: system
+        types: [file, python]
+      - id: isort
+        name: isort
+        entry: poetry run isort --check markupify/
+        language: system
+        types: [file, python]
+      - id: mypy
+        name: mypy
+        entry: poetry run mypy --show-column-numbers markupify/
+        language: system
+        types: [file, python]
+        pass_filenames: false

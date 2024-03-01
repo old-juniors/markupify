@@ -1,0 +1,38 @@
+[tool.black]
+line-length = 79
+target-version = ['py39', 'py310', 'py311']
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.mypy]
+warn_return_any = false
+warn_unused_configs = true
+
+[tool.poetry]
+name = "markupify"
+packages = [{ include = "markupify" }]
+version = "0.0.1"
+description = "A simple HTML5 generator based-on Python's OOP"
+authors = ["ChogirmaliYigit <chogirmali.yigit@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+keywords = ["html", "python", "html-generator", "markup"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
+black = "^24.2.0"
+isort = "^5.13.2"
+pre-commit = "^3.6.2"
+
+[tool.poetry.urls]
+"Source" = "https://github.com/old-juniors/markupify"
+"Bug Tracker" = "https://github.com/old-juniors/markupify/issues"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
