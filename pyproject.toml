@@ -22,12 +22,14 @@ keywords = ["html", "python", "html-generator", "markup"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+beautifulsoup4 = "^4.12.3"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.8.0"
 black = "^24.2.0"
 isort = "^5.13.2"
 pre-commit = "^3.6.2"
+beautifulsoup4 = "^4.12.3"
 
 [tool.poetry.urls]
 "Source" = "https://github.com/old-juniors/markupify"

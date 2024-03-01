@@ -1,71 +1,173 @@
-from .tags import Html, Head, Body, DocType
+from typing import Optional, Any
+from bs4 import BeautifulSoup
+
+from .tags import Element, Html, Head, Body, DocType
 
 
 class HTMLPage:
     """
     Page template class to make an HTML page.
+
+    Args:
+        lang (str, optional): The language of the HTML page (Defaults to "en").
+
+    Attributes:
+        lang (str): The language of the HTML page.
+
+    Methods:
+        __init__: Initialize the HTMLPage instance.
+        __str__: Return a string representation of the HTMLPage.
+        __repr__: Return a string representation of the HTMLPage.
+        render: Render the HTML content of the page.
+        doc_type: Get the DocType of the HTML page.
+        html: Get the Html element of the HTML page.
+        set_head: Set the head section of the HTML page.
+        set_body: Set the body section of the HTML page.
+        pretty: Prettify the HTML content.
+        add_head: Add tags to the head section.
+        add_body: Add tags to the body section.
     """
 
     def __init__(self, lang: str = "en"):
-        self.lang = lang
-        self.template = "<!DOCTYPE html>{html}"
+        """
+        Initialize the HTMLPage instance.
+
+        Args:
+            lang (str, optional): The language of the HTML page (Defaults to "en").
+        """
+        self.lang: str = lang
+        self.template: str = "<!DOCTYPE html>{html}"
+        self._head: Head = self.set_head()
+        self._body: Body = self.set_body()
 
     def __str__(self) -> str:
+        """
+        Return a string representation of the HTMLPage.
+
+        Returns:
+            str: The HTML content of the page.
+        """
         return self.render()
 
     def __repr__(self) -> str:
+        """
+        Return a string representation of the HTMLPage.
+
+        Returns:
+            str: The HTML content of the page.
+        """
         return self.render()
 
     def render(self) -> str:
+        """
+        Render the HTML content of the page.
+
+        Returns:
+            str: The HTML content of the page.
+        """
         return self.template.format(html=self.html)
 
     @property
-    def html(self) -> Html:
-        html = Html(
-            content=f"{self.head}{self.body}",
-            lang=self.lang,
-        )
-
-        return html
-
-    @property
     def doc_type(self) -> DocType:
+        """
+        Get the DocType of the HTML page.
+
+        Returns:
+            DocType: The DocType of the HTML page.
+        """
         doc_type = DocType("html")
         return doc_type
 
     @property
-    def head(self) -> Head:
-        head = Head()
-        return head
+    def html(self) -> Html:
+        """
+        Get the Html element of the HTML page.
 
-    @property
-    def body(self) -> Body:
-        body = Body()
-        return body
+        Returns:
+            Html: The Html element of the HTML page.
+        """
+        html = Html(
+            tag_content=f"{self._head}{self._body}",
+            lang=self.lang,
+        )
+        return html
 
-    @property
-    def pretty(self):
-        indent_size = 4
-        indentation = 0
-        formatted_html = ""
+    def set_head(self, tag_content: Optional[Any] = "", **props) -> Head:
+        """
+        Set the head section of the HTML page.
 
-        tokens = self.render().split("<")
+        Args:
+            tag_content (Any, optional): The content of the head section (Defaults to "").
+            **props: Additional properties for the head section.
 
-        for token in tokens:
-            if token.strip() == "":
-                continue
+        Returns:
+            Head: The Head element of the HTML page.
+        """
+        content = ""
+        if isinstance(tag_content, (str, Element)):
+            content = str(tag_content)
+        elif isinstance(tag_content, list):
+            for tag in tag_content:
+                content += str(tag)
+        self._head = Head(tag_content=content, **props)
+        return self._head
 
-            if token.startswith("/"):
-                indentation -= 1
+    def set_body(self, tag_content: Optional[Any] = "", **props) -> Body:
+        """
+        Set the body section of the HTML page.
 
-            if token.startswith("html") or token.startswith("/html"):
-                formatted_html += "\n"
-            else:
-                formatted_html += "\n" + " " * (indent_size * indentation)
+        Args:
+            tag_content (Any, optional): The content of the body section (Defaults to "").
+            **props: Additional properties for the body section.
 
-            formatted_html += "<" + token
+        Returns:
+            Body: The Body element of the HTML page.
+        """
+        self._body = Body(tag_content=tag_content, **props)
+        return self._body
 
-            if not token.endswith("/>") and not token.startswith("/"):
-                indentation += 1
+    def pretty(self, html_content: str = "", encoding=None, formatter="minimal") -> str:
+        """
+        Prettify the HTML content.
 
-        return formatted_html.strip()
+        Args:
+            html_content (str, optional): The HTML content to be prettified (Defaults to "").
+            encoding: Encoding to use for prettifying (Defaults to None).
+            formatter (str, optional): The formatter to use for prettifying (Defaults to "minimal").
+
+        Returns:
+            str: The prettified HTML content.
+        """
+        if not html_content:
+            html_content = self.render()
+
+        soup = BeautifulSoup(html_content, "html.parser")
+        return soup.prettify(encoding, formatter)
+
+    def add_tag_to_head(self, tag_content: Any) -> Head:
+        """
+        Add tags to the head section of the HTML page.
+
+        Args:
+            tag_content (Any): The content to be added to the head section.
+        """
+        if isinstance(tag_content, (str, Element)):
+            self._head.tag_content += str(tag_content)
+        elif isinstance(tag_content, list):
+            for tag in tag_content:
+                self._head.tag_content += str(tag)
+        return self._head
+
+    def add_tag_to_body(self, tag_content: Any) -> Body:
+        """
+        Add tags to the body section of the HTML page.
+
+        Args:
+            tag_content (Any): The content to be added to the body section.
+        """
+        if isinstance(tag_content, (str, Element)):
+            self._body.tag_content += str(tag_content)
+        elif isinstance(tag_content, list):
+            for tag in tag_content:
+                self._body.tag_content += str(tag)
+        return self._body
