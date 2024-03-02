@@ -36,7 +36,7 @@ class HTMLPage:
             lang (str, optional): The language of the HTML page (Defaults to "en").
         """
         self.lang: str = lang
-        self.template: str = "<!DOCTYPE html>{html}"
+        self.template: str = "{doc_type}{html}"
         self._head: Head = self.set_head()
         self._body: Body = self.set_body()
 
@@ -65,7 +65,7 @@ class HTMLPage:
         Returns:
             str: The HTML content of the page.
         """
-        return self.template.format(html=self.html)
+        return self.template.format(doc_type=self.doc_type, html=self.html)
 
     @property
     def doc_type(self) -> DocType:
@@ -92,43 +92,37 @@ class HTMLPage:
         )
         return html
 
-    def set_head(self, tag_content: Optional[Union[str, list, Element]] = "", **props) -> Head:
+    def set_head(self, *args, **props) -> Head:
         """
         Set the head section of the HTML page.
 
         Args:
-            tag_content (Any, optional): The content of the head section (Defaults to "").
+            *args (Any, optional): The list of contents of the head section (Defaults to "").
             **props: Additional properties for the head section.
 
         Returns:
             Head: The Head element of the HTML page.
         """
         content = ""
-        if isinstance(tag_content, (str, Element)):
-            content = str(tag_content)
-        elif isinstance(tag_content, list):
-            for tag in tag_content:
-                content += str(tag)
+        for tag in args:
+            content += str(tag)
         self._head = Head(tag_content=content, **props)
         return self._head
 
-    def set_body(self, tag_content: Optional[Union[str, list, Element]] = "", **props) -> Body:
+    def set_body(self, *args, **props) -> Body:
         """
         Set the body section of the HTML page.
 
         Args:
-            tag_content (Any, optional): The content of the body section (Defaults to "").
+            *args (Any, optional): The list of contents of the body section (Defaults to "").
             **props: Additional properties for the body section.
 
         Returns:
             Body: The Body element of the HTML page.
         """
         content = ""
-        if isinstance(tag_content, (str, Element)):
-            content = str(tag_content)
-        elif isinstance(tag_content, list):
-            for tag in tag_content:
-                content += str(tag)
+        for tag in args:
+            content += str(tag)
         self._body = Body(tag_content=content, **props)
         return self._body
 
@@ -150,30 +144,24 @@ class HTMLPage:
         soup = BeautifulSoup(html_content, "html.parser")
         return soup.prettify(encoding, formatter)
 
-    def add_tag_to_head(self, tag_content: Union[str, list, Element]) -> Head:
+    def add_tag_to_head(self, *args) -> Head:
         """
         Add tags to the head section of the HTML page.
 
         Args:
-            tag_content (Any): The content to be added to the head section.
+            *args (Any): The list of contents to be added to the head section.
         """
-        if isinstance(tag_content, (str, Element)):
-            self._head.tag_content += str(tag_content)
-        elif isinstance(tag_content, list):
-            for tag in tag_content:
-                self._head.tag_content += str(tag)
+        for tag in args:
+            self._head.tag_content += str(tag)
         return self._head
 
-    def add_tag_to_body(self, tag_content: Union[str, list, Element]) -> Body:
+    def add_tag_to_body(self, *args) -> Body:
         """
         Add tags to the body section of the HTML page.
 
         Args:
-            tag_content (Any): The content to be added to the body section.
+            *args (Any): The list of contents to be added to the body section.
         """
-        if isinstance(tag_content, (str, Element)):
-            self._body.tag_content += str(tag_content)
-        elif isinstance(tag_content, list):
-            for tag in tag_content:
-                self._body.tag_content += str(tag)
+        for tag in args:
+            self._body.tag_content += str(tag)
         return self._body
