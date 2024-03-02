@@ -1,4 +1,4 @@
-from typing import Optional, Any
+from typing import Optional, Union
 from bs4 import BeautifulSoup
 
 from .tags import Element, Html, Head, Body, DocType
@@ -92,7 +92,7 @@ class HTMLPage:
         )
         return html
 
-    def set_head(self, tag_content: Optional[Any] = "", **props) -> Head:
+    def set_head(self, tag_content: Optional[Union[str, list, Element]] = "", **props) -> Head:
         """
         Set the head section of the HTML page.
 
@@ -112,7 +112,7 @@ class HTMLPage:
         self._head = Head(tag_content=content, **props)
         return self._head
 
-    def set_body(self, tag_content: Optional[Any] = "", **props) -> Body:
+    def set_body(self, tag_content: Optional[Union[str, list, Element]] = "", **props) -> Body:
         """
         Set the body section of the HTML page.
 
@@ -123,10 +123,16 @@ class HTMLPage:
         Returns:
             Body: The Body element of the HTML page.
         """
-        self._body = Body(tag_content=tag_content, **props)
+        content = ""
+        if isinstance(tag_content, (str, Element)):
+            content = str(tag_content)
+        elif isinstance(tag_content, list):
+            for tag in tag_content:
+                content += str(tag)
+        self._body = Body(tag_content=content, **props)
         return self._body
 
-    def pretty(self, html_content: str = "", encoding=None, formatter="minimal") -> str:
+    def pretty(self, html_content: Optional[Union[str, Element]] = "", encoding=None, formatter="minimal") -> str:
         """
         Prettify the HTML content.
 
@@ -144,7 +150,7 @@ class HTMLPage:
         soup = BeautifulSoup(html_content, "html.parser")
         return soup.prettify(encoding, formatter)
 
-    def add_tag_to_head(self, tag_content: Any) -> Head:
+    def add_tag_to_head(self, tag_content: Union[str, list, Element]) -> Head:
         """
         Add tags to the head section of the HTML page.
 
@@ -158,7 +164,7 @@ class HTMLPage:
                 self._head.tag_content += str(tag)
         return self._head
 
-    def add_tag_to_body(self, tag_content: Any) -> Body:
+    def add_tag_to_body(self, tag_content: Union[str, list, Element]) -> Body:
         """
         Add tags to the body section of the HTML page.
 
