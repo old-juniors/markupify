@@ -75,7 +75,7 @@ class HTMLPage:
         Returns:
             DocType: The DocType of the HTML page.
         """
-        doc_type = DocType("html")
+        doc_type = DocType()
         return doc_type
 
     @property
@@ -97,7 +97,7 @@ class HTMLPage:
         Set the head section of the HTML page.
 
         Args:
-            *args (Any, optional): The list of contents of the head section (Defaults to "").
+            *args (str, Element): The list of contents of the head section (Defaults to "").
             **props: Additional properties for the head section.
 
         Returns:
@@ -114,7 +114,7 @@ class HTMLPage:
         Set the body section of the HTML page.
 
         Args:
-            *args (Any, optional): The list of contents of the body section (Defaults to "").
+            *args (str, Element): The list of contents of the body section (Defaults to "").
             **props: Additional properties for the body section.
 
         Returns:
@@ -149,7 +149,7 @@ class HTMLPage:
         Add tags to the head section of the HTML page.
 
         Args:
-            *args (Any): The list of contents to be added to the head section.
+            *args (str, Element): The list of contents to be added to the head section.
         """
         for tag in args:
             self._head.tag_content += str(tag)
@@ -160,7 +160,7 @@ class HTMLPage:
         Add tags to the body section of the HTML page.
 
         Args:
-            *args (Any): The list of contents to be added to the body section.
+            *args (str, Element): The list of contents to be added to the body section.
         """
         for tag in args:
             self._body.tag_content += str(tag)

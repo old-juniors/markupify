@@ -730,7 +730,7 @@ class DocType:
         Initialize the DocType.
 
         Args:
-            doc_type (str): The type of the document (Defaults to "html").
+            doc_type (str, optional): The type of the document (Defaults to "html").
         """
         self.doc_type = doc_type
 
