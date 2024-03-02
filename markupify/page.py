@@ -28,17 +28,30 @@ class HTMLPage:
         add_body: Add tags to the body section.
     """
 
-    def __init__(self, lang: str = "en"):
+    def __init__(self,head: Optional[Head], body: Optional[Body], lang: str = "en"):
         """
         Initialize the HTMLPage instance.
 
-        Args:
+        ### Args:
             lang (str, optional): The language of the HTML page (Defaults to "en").
+            head (str, optional): The head section of the HTML page (Defaults to "<head></head>").
+            body (str, optional): The body section of the HTML page (Defaults to "<body></body>").
+
+        ### Attributes:
+            lang (str): The language of the HTML page.
+            head (Head): The head section of the HTML page.
+            body (Body): The body section of the HTML page.
+            template (str): The template of the HTML page.
+
+        ### Methods:
+
+        self.set_head(head)
+        self.set_body(body)
         """
         self.lang: str = lang
         self.template: str = "{doc_type}{html}"
-        self._head: Head = self.set_head()
-        self._body: Body = self.set_body()
+        self.head: Head = self.set_head(head) if not bool(head) else Head()
+        self.body: Body = self.set_body(body) if not bool(body) else Body()
 
     def __str__(self) -> str:
         """
@@ -87,7 +100,7 @@ class HTMLPage:
             Html: The Html element of the HTML page.
         """
         html = Html(
-            tag_content=f"{self._head}{self._body}",
+            tag_content=f"{self.head}{self.body}",
             lang=self.lang,
         )
         return html
@@ -106,8 +119,8 @@ class HTMLPage:
         content = ""
         for tag in args:
             content += str(tag)
-        self._head = Head(tag_content=content, **props)
-        return self._head
+        self.head = Head(tag_content=content, **props)
+        return self.head
 
     def set_body(self, *args, **props) -> Body:
         """
@@ -123,8 +136,8 @@ class HTMLPage:
         content = ""
         for tag in args:
             content += str(tag)
-        self._body = Body(tag_content=content, **props)
-        return self._body
+        self.body = Body(tag_content=content, **props)
+        return self.body
 
     def pretty(self, html_content: Optional[Union[str, Element]] = "", encoding=None, formatter="minimal") -> str:
         """
@@ -152,8 +165,8 @@ class HTMLPage:
             *args (str, Element): The list of contents to be added to the head section.
         """
         for tag in args:
-            self._head.tag_content += str(tag)
-        return self._head
+            self.head.tag_content += str(tag)
+        return self.head
 
     def add_tag_to_body(self, *args) -> Body:
         """
@@ -162,6 +175,19 @@ class HTMLPage:
         Args:
             *args (str, Element): The list of contents to be added to the body section.
         """
+
         for tag in args:
-            self._body.tag_content += str(tag)
-        return self._body
+            self.body.tag_content += str(tag)
+        return self.body
+
+
+    def write(self, filename: str):
+        """
+        Write the HTML content to a file.
+
+        Args:
+            filename (str): The name of the file to write to.
+        """
+        with open(filename, "w") as f:
+            f.write(self.pretty())
+        
