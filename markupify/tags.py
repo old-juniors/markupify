@@ -1,4 +1,4 @@
-from typing import Optional, Any, Union
+from typing import Optional, Union
 
 
 class Element:
@@ -71,7 +71,7 @@ class Element:
                 raise TypeError("style property must be string or dict.")
 
         if self.style:
-            self.properties["style"] = self.style
+            self.add_property("style", self.style)
         self.add_properties(**self.properties)
 
     def __str__(self) -> str:
@@ -155,6 +155,7 @@ class Element:
             **props: Properties for the tag.
         """
         for name, value in props.items():
+            name = name.strip("_")
             name = name.replace("_", "-")
             self.add_property(name, value)
 
@@ -176,6 +177,7 @@ class Element:
             **styles: Styles for the tag.
         """
         for name, value in styles.items():
+            name = name.strip("_")
             name = name.replace("_", "-")
             self.add_style(name, value)
 
