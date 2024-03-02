@@ -34,11 +34,11 @@ class Element:
     """
 
     def __init__(
-            self,
-            tag_name: Optional[str] = "div",
-            has_end_tag: Optional[bool] = True,
-            tag_content: Optional[str] = "",
-            **props: object
+        self,
+        tag_name: Optional[str] = "div",
+        has_end_tag: Optional[bool] = True,
+        tag_content: Optional[str] = "",
+        **props: object,
     ) -> None:
         """
         Initialize the Element instance.
@@ -50,8 +50,10 @@ class Element:
             **props: Properties for the tag.
         """
         if not has_end_tag and tag_content:
-            raise ValueError("Tags without end parts cannot contain content. "
-                             "Set has_end_tag to True or leave blank the tag_content.")
+            raise ValueError(
+                "Tags without end parts cannot contain content. "
+                "Set has_end_tag to True or leave blank the tag_content."
+            )
 
         self.tag_name = tag_name.lower()
         self.has_end_tag = has_end_tag
@@ -92,7 +94,7 @@ class Element:
         """
         return self.render()
 
-    def __add__(self, other: Union[str, 'Element']) -> 'Element':
+    def __add__(self, other: Union[str, "Element"]) -> "Element":
         """
         Concatenate tag content when using the addition operator.
 
@@ -107,7 +109,7 @@ class Element:
             tag_name=self.tag_name,
             has_end_tag=self.has_end_tag,
             tag_content=new_tag_content,
-            **self.properties
+            **self.properties,
         )
 
     def render(self) -> str:
@@ -181,7 +183,7 @@ class Element:
             name = name.replace("_", "-")
             self.add_style(name, value)
 
-    def add_content(self, tag_content: Union[str, 'Element']) -> None:
+    def add_content(self, tag_content: Union[str, "Element"]) -> None:
         """
         Add content to the tag.
 
@@ -191,7 +193,7 @@ class Element:
         self.tag_content += tag_content
 
     @property
-    def text(self) -> [str, 'Element']:
+    def text(self) -> [str, "Element"]:
         """
         Get the text content of the tag.
 
@@ -205,7 +207,13 @@ class A(Element):
     """
     Represents the <a> HTML element.
     """
-    def __init__(self, link: str, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self,
+        link: str,
+        tag_content: Optional[Union[str, "Element"]] = "",
+        **props,
+    ):
         """
         Initialize the A element.
 
@@ -214,14 +222,19 @@ class A(Element):
             tag_content (Optional, str or Element): The content of the <a> tag.
             **props: Additional properties for the <a> tag.
         """
-        super().__init__(tag_name="a", tag_content=tag_content, href=link, **props)
+        super().__init__(
+            tag_name="a", tag_content=tag_content, href=link, **props
+        )
 
 
 class Abbr(Element):
     """
     Represents the <abbr> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Abbr element.
 
@@ -236,7 +249,10 @@ class Address(Element):
     """
     Represents the <address> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Address element.
 
@@ -251,6 +267,7 @@ class Area(Element):
     """
     Represents the <area> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Area element.
@@ -265,7 +282,10 @@ class Article(Element):
     """
     Represents the <article> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Article element.
 
@@ -280,7 +300,10 @@ class Aside(Element):
     """
     Represents the <aside> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Aside element.
 
@@ -295,7 +318,10 @@ class Audio(Element):
     """
     Represents the <audio> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Audio element.
 
@@ -310,7 +336,10 @@ class B(Element):
     """
     Represents the <b> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the B element.
 
@@ -325,6 +354,7 @@ class Base(Element):
     """
     Represents the <base> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Base element.
@@ -339,7 +369,10 @@ class Bdi(Element):
     """
     Represents the <bdi> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Bdi element.
 
@@ -354,7 +387,10 @@ class Bdo(Element):
     """
     Represents the <bdo> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Bdo element.
 
@@ -369,7 +405,10 @@ class BlockQuote(Element):
     """
     Represents the <blockquote> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the BlockQuote element.
 
@@ -377,14 +416,19 @@ class BlockQuote(Element):
             tag_content (Optional[Union[str, 'Element']]): The content of the <blockquote> tag.
             **props: Additional properties for the <blockquote> tag.
         """
-        super().__init__(tag_name="blockquote", tag_content=tag_content, **props)
+        super().__init__(
+            tag_name="blockquote", tag_content=tag_content, **props
+        )
 
 
 class Body(Element):
     """
     Represents the <body> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Body element.
 
@@ -399,6 +443,7 @@ class Br(Element):
     """
     Represents the <br> HTML element.
     """
+
     def __init__(self):
         """
         Initialize the Br element.
@@ -410,7 +455,10 @@ class Button(Element):
     """
     Represents the <button> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Button element.
 
@@ -425,7 +473,10 @@ class Canvas(Element):
     """
     Represents the <canvas> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Canvas element.
 
@@ -440,7 +491,10 @@ class Caption(Element):
     """
     Represents the <caption> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Caption element.
 
@@ -455,6 +509,7 @@ class Circle(Element):
     """
     Represents the <circle> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Circle element.
@@ -469,7 +524,10 @@ class Cite(Element):
     """
     Represents the <cite> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Cite element.
 
@@ -484,7 +542,10 @@ class Code(Element):
     """
     Represents the <code> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Code element.
 
@@ -499,6 +560,7 @@ class Col(Element):
     """
     Represents the <col> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Col element.
@@ -513,7 +575,10 @@ class ColGroup(Element):
     """
     Represents the <colgroup> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the ColGroup element.
 
@@ -528,7 +593,12 @@ class Comment:
     """
     Represents an HTML comment.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", multiline: bool = False):
+
+    def __init__(
+        self,
+        tag_content: Optional[Union[str, "Element"]] = "",
+        multiline: bool = False,
+    ):
         """
         Initialize the Comment.
 
@@ -577,7 +647,10 @@ class Data(Element):
     """
     Represents the <data> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Data element.
 
@@ -592,7 +665,10 @@ class DataList(Element):
     """
     Represents the <datalist> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the DataList element.
 
@@ -607,7 +683,10 @@ class Dd(Element):
     """
     Represents the <dd> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Dd element.
 
@@ -622,7 +701,10 @@ class Defs(Element):
     """
     Represents the <defs> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Defs element.
 
@@ -637,7 +719,10 @@ class Del(Element):
     """
     Represents the <del> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Del element.
 
@@ -652,7 +737,10 @@ class Details(Element):
     """
     Represents the <details> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Details element.
 
@@ -667,7 +755,10 @@ class Dfn(Element):
     """
     Represents the <dfn> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Dfn element.
 
@@ -682,7 +773,10 @@ class Dialog(Element):
     """
     Represents the <dialog> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Dialog element.
 
@@ -697,7 +791,10 @@ class Div(Element):
     """
     Represents the <div> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Div element.
 
@@ -712,7 +809,10 @@ class Dl(Element):
     """
     Represents the <dl> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Dl element.
 
@@ -727,6 +827,7 @@ class DocType:
     """
     Represents the document type declaration (DOCTYPE) of an HTML document.
     """
+
     def __init__(self, doc_type: str = "html"):
         """
         Initialize the DocType.
@@ -768,7 +869,10 @@ class Dt(Element):
     """
     Represents the <dt> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Dt element.
 
@@ -783,6 +887,7 @@ class Ellipse(Element):
     """
     Represents the <ellipse> SVG element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Ellipse element.
@@ -797,7 +902,10 @@ class Em(Element):
     """
     Represents the <em> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Em element.
 
@@ -812,6 +920,7 @@ class Embed(Element):
     """
     Represents the <embed> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Embed element.
@@ -826,7 +935,10 @@ class FieldSet(Element):
     """
     Represents the <fieldset> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the FieldSet element.
 
@@ -841,7 +953,10 @@ class FigCaption(Element):
     """
     Represents the <figcaption> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the FigCaption element.
 
@@ -849,14 +964,19 @@ class FigCaption(Element):
             tag_content (Optional[Union[str, 'Element']]): The content of the <figcaption> tag.
             **props: Additional properties for the <figcaption> tag.
         """
-        super().__init__(tag_name="figcaption", tag_content=tag_content, **props)
+        super().__init__(
+            tag_name="figcaption", tag_content=tag_content, **props
+        )
 
 
 class Figure(Element):
     """
     Represents the <figure> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Figure element.
 
@@ -871,7 +991,10 @@ class Footer(Element):
     """
     Represents the <footer> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Footer element.
 
@@ -886,7 +1009,10 @@ class Form(Element):
     """
     Represents the <form> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Form element.
 
@@ -901,7 +1027,13 @@ class H(Element):
     """
     Represents a heading (h1 - h6) HTML element.
     """
-    def __init__(self, level: int = 1, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self,
+        level: int = 1,
+        tag_content: Optional[Union[str, "Element"]] = "",
+        **props,
+    ):
         """
         Initialize the H element.
 
@@ -911,15 +1043,20 @@ class H(Element):
             **props: Additional properties for the heading tag.
         """
         if not 1 <= level <= 6:
-            raise ValueError("The heading level must be an integer in range 1-6.")
-        super().__init__(tag_name=f"h{level}", tag_content=tag_content, **props)
+            raise ValueError(
+                "The heading level must be an integer in range 1-6."
+            )
+        super().__init__(
+            tag_name=f"h{level}", tag_content=tag_content, **props
+        )
 
 
 class Head(Element):
     """
     Represents the <head> HTML element.
     """
-    def __init__(self, *args: Union[str, 'Element'], **props):
+
+    def __init__(self, *args: Union[str, "Element"], **props):
         """
         Initialize the head element.
 
@@ -935,7 +1072,10 @@ class Header(Element):
     """
     Represents the <header> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Header element.
 
@@ -950,7 +1090,10 @@ class HGroup(Element):
     """
     Represents the <hgroup> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the HGroup element.
 
@@ -965,6 +1108,7 @@ class Hr(Element):
     """
     Represents the <hr> HTML element.
     """
+
     def __init__(self):
         """
         Initialize the Hr element.
@@ -976,7 +1120,10 @@ class Html(Element):
     """
     Represents the <html> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Html element.
 
@@ -991,7 +1138,10 @@ class I(Element):
     """
     Represents the <i> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the i element.
 
@@ -1006,7 +1156,10 @@ class IFrame(Element):
     """
     Represents the <iframe> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the IFrame element.
 
@@ -1021,6 +1174,7 @@ class Img(Element):
     """
     Represents the <img> HTML element.
     """
+
     def __init__(self, src: str, **props):
         """
         Initialize the Img element.
@@ -1036,6 +1190,7 @@ class Input(Element):
     """
     Represents the <input> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Input element.
@@ -1050,7 +1205,10 @@ class Ins(Element):
     """
     Represents the <ins> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Ins element.
 
@@ -1065,7 +1223,10 @@ class Kbd(Element):
     """
     Represents the <kbd> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Kbd element.
 
@@ -1080,7 +1241,10 @@ class Label(Element):
     """
     Represents the <label> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Label element.
 
@@ -1095,7 +1259,10 @@ class Legend(Element):
     """
     Represents the <legend> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Legend element.
 
@@ -1110,7 +1277,10 @@ class Li(Element):
     """
     Represents the <li> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Li element.
 
@@ -1125,7 +1295,10 @@ class LinearGradient(Element):
     """
     Represents the <linearGradient> SVG element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the LinearGradient element.
 
@@ -1133,13 +1306,16 @@ class LinearGradient(Element):
             tag_content (Optional[Union[str, 'Element']]): The content of the <linearGradient> tag.
             **props: Additional properties for the <linearGradient> tag.
         """
-        super().__init__(tag_name="linearGradient", tag_content=tag_content, **props)
+        super().__init__(
+            tag_name="linearGradient", tag_content=tag_content, **props
+        )
 
 
 class Link(Element):
     """
     Represents the <link> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Link element.
@@ -1154,7 +1330,10 @@ class Main(Element):
     """
     Represents the <main> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Main element.
 
@@ -1169,7 +1348,10 @@ class Map(Element):
     """
     Represents the <map> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Map element.
 
@@ -1184,7 +1366,10 @@ class Mark(Element):
     """
     Represents the <mark> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Mark element.
 
@@ -1199,7 +1384,10 @@ class Menu(Element):
     """
     Represents the <menu> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Menu element.
 
@@ -1214,6 +1402,7 @@ class Meta(Element):
     """
     Represents the <meta> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Meta element.
@@ -1228,7 +1417,10 @@ class Meter(Element):
     """
     Represents the <meter> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Meter element.
 
@@ -1243,7 +1435,10 @@ class Nav(Element):
     """
     Represents the <nav> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Nav element.
 
@@ -1258,7 +1453,10 @@ class NoScript(Element):
     """
     Represents the <noscript> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the NoScript element.
 
@@ -1273,7 +1471,10 @@ class Object(Element):
     """
     Represents the <object> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Object element.
 
@@ -1288,7 +1489,10 @@ class Ol(Element):
     """
     Represents the <ol> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Ol element.
 
@@ -1303,7 +1507,10 @@ class OptGroup(Element):
     """
     Represents the <optgroup> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the OptGroup element.
 
@@ -1318,7 +1525,8 @@ class Option(Element):
     """
     Represents the <option> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']], **props):
+
+    def __init__(self, tag_content: Optional[Union[str, "Element"]], **props):
         """
         Initialize the Option element.
 
@@ -1333,7 +1541,10 @@ class Output(Element):
     """
     Represents the <output> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Output element.
 
@@ -1348,7 +1559,10 @@ class P(Element):
     """
     Represents the <p> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the P element.
 
@@ -1363,7 +1577,10 @@ class Param(Element):
     """
     Represents the <param> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Param element.
 
@@ -1378,7 +1595,10 @@ class Picture(Element):
     """
     Represents the <picture> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Picture element.
 
@@ -1393,6 +1613,7 @@ class Polygon(Element):
     """
     Represents the <polygon> SVG element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Polygon element.
@@ -1407,7 +1628,10 @@ class Pre(Element):
     """
     Represents the <pre> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Pre element.
 
@@ -1422,7 +1646,10 @@ class Progress(Element):
     """
     Represents the <progress> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Progress element.
 
@@ -1437,7 +1664,10 @@ class Q(Element):
     """
     Represents the <q> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Q element.
 
@@ -1452,6 +1682,7 @@ class Rect(Element):
     """
     Represents the <rect> SVG element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Rect element.
@@ -1466,7 +1697,10 @@ class Rp(Element):
     """
     Represents the <rp> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Rp element.
 
@@ -1481,7 +1715,10 @@ class Rt(Element):
     """
     Represents the <rt> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Rt element.
 
@@ -1496,7 +1733,10 @@ class Ruby(Element):
     """
     Represents the <ruby> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Ruby element.
 
@@ -1511,7 +1751,10 @@ class S(Element):
     """
     Represents the <s> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the S element.
 
@@ -1526,7 +1769,10 @@ class Samp(Element):
     """
     Represents the <samp> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Samp element.
 
@@ -1541,7 +1787,10 @@ class Script(Element):
     """
     Represents the <script> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Script element.
 
@@ -1556,7 +1805,10 @@ class Search(Element):
     """
     Represents the <search> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Search element.
 
@@ -1571,7 +1823,10 @@ class Section(Element):
     """
     Represents the <section> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Section element.
 
@@ -1586,7 +1841,10 @@ class Select(Element):
     """
     Represents the <select> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Select element.
 
@@ -1601,7 +1859,10 @@ class Small(Element):
     """
     Represents the <small> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Small element.
 
@@ -1616,6 +1877,7 @@ class Source(Element):
     """
     Represents the <source> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Source element.
@@ -1630,7 +1892,10 @@ class Span(Element):
     """
     Represents the <span> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Span element.
 
@@ -1645,6 +1910,7 @@ class Stop(Element):
     """
     Represents the <stop> SVG element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Stop element.
@@ -1659,7 +1925,10 @@ class Strong(Element):
     """
     Represents the <strong> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Strong element.
 
@@ -1674,6 +1943,7 @@ class Style(Element):
     """
     Represents the <style> HTML element.
     """
+
     def __init__(self, **props):
         """
         Initialize the Style element.
@@ -1684,7 +1954,9 @@ class Style(Element):
         tag_content = ""
         for key, value in props.items():
             if isinstance(value, dict):
-                val = "".join(f"{k.replace('_', '-')}: {v};" for k, v in value.items())
+                val = "".join(
+                    f"{k.replace('_', '-')}: {v};" for k, v in value.items()
+                )
                 tag_content += f"{key} {val}"
             elif isinstance(value, str):
                 tag_content += f"{key} {value}"
@@ -1698,7 +1970,10 @@ class Sub(Element):
     """
     Represents the <sub> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the <sub> element.
 
@@ -1713,7 +1988,10 @@ class Summary(Element):
     """
     Represents the <summary> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Summary element.
 
@@ -1728,7 +2006,10 @@ class Sup(Element):
     """
     Represents the <sup> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Sup element.
 
@@ -1743,7 +2024,10 @@ class Svg(Element):
     """
     Represents the <svg> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Svg element.
 
@@ -1758,7 +2042,10 @@ class Table(Element):
     """
     Represents the <table> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Table element.
 
@@ -1773,7 +2060,10 @@ class TBody(Element):
     """
     Represents the <tbody> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the TBody element.
 
@@ -1788,7 +2078,10 @@ class Td(Element):
     """
     Represents the <td> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Td element.
 
@@ -1803,7 +2096,10 @@ class Template(Element):
     """
     Represents the <template> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Template element.
 
@@ -1818,7 +2114,10 @@ class Text(Element):
     """
     Represents the <text> SVG element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Text element.
 
@@ -1833,7 +2132,10 @@ class Textarea(Element):
     """
     Represents the <textarea> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Textarea element.
 
@@ -1848,7 +2150,10 @@ class TFoot(Element):
     """
     Represents the <tfoot> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the TFoot element.
 
@@ -1863,7 +2168,10 @@ class Th(Element):
     """
     Represents the <th> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the th element.
 
@@ -1878,7 +2186,10 @@ class THead(Element):
     """
     Represents the <thead> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the THead element.
 
@@ -1893,7 +2204,10 @@ class Time(Element):
     """
     Represents the <time> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Time element.
 
@@ -1908,7 +2222,10 @@ class Title(Element):
     """
     Represents the <title> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Title element.
 
@@ -1923,7 +2240,10 @@ class Tr(Element):
     """
     Represents the <tr> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the tr element.
 
@@ -1938,7 +2258,10 @@ class Track(Element):
     """
     Represents the <track> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Track element.
 
@@ -1953,7 +2276,10 @@ class U(Element):
     """
     Represents the <u> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the U element.
 
@@ -1968,7 +2294,10 @@ class Ul(Element):
     """
     Represents the <ul> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Ul element.
 
@@ -1983,7 +2312,10 @@ class Var(Element):
     """
     Represents the <var> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Var element.
 
@@ -1998,7 +2330,10 @@ class Video(Element):
     """
     Represents the <video> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Video element.
 
@@ -2013,7 +2348,10 @@ class Wbr(Element):
     """
     Represents the <wbr> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+
+    def __init__(
+        self, tag_content: Optional[Union[str, "Element"]] = "", **props
+    ):
         """
         Initialize the Wbr element.
 

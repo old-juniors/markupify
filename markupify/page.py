@@ -1,7 +1,8 @@
 from typing import Optional, Union
+
 from bs4 import BeautifulSoup
 
-from .tags import Element, Html, Head, Body, DocType
+from .tags import Body, DocType, Element, Head, Html
 
 
 class HTMLPage:
@@ -126,7 +127,12 @@ class HTMLPage:
         self._body = Body(tag_content=content, **props)
         return self._body
 
-    def pretty(self, html_content: Optional[Union[str, Element]] = "", encoding=None, formatter="minimal") -> str:
+    def pretty(
+        self,
+        html_content: Optional[Union[str, Element]] = "",
+        encoding=None,
+        formatter="minimal",
+    ) -> str:
         """
         Prettify the HTML content.
 
