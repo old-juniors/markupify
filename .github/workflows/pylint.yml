@@ -1,4 +1,4 @@
-name: backend
+name: pre-commit
 
 on:
   # Runs on pushes targeting the default branch
@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref_name != 'main'}}
 
 jobs:
-  backend-lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
