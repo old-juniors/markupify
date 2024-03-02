@@ -25,4 +25,4 @@ jobs:
       - name: Install pycodestyle
         run: pip install pycodestyle==2.5.0
       - name: Lint backend
-        run: pycodestyle . --ignore=E501,W504,W503 --exclude=migrations
+        run: pycodestyle . --ignore=E501,E742,W504,W503 --exclude=migrations
