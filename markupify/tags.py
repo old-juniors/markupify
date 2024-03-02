@@ -919,14 +919,15 @@ class Head(Element):
     """
     Represents the <head> HTML element.
     """
-    def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
+    def __init__(self, *args: Union[str, 'Element'], **props):
         """
-        Initialize the Head element.
+        Initialize the head element.
 
         Args:
             tag_content (Optional[Union[str, 'Element']]): The content of the <head> tag.
             **props: Additional properties for the <head> tag.
         """
+        tag_content = "".join(args)
         super().__init__(tag_name="head", tag_content=tag_content, **props)
 
 
@@ -992,7 +993,7 @@ class I(Element):
     """
     def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
         """
-        Initialize the I element.
+        Initialize the i element.
 
         Args:
             tag_content (Optional[Union[str, 'Element']]): The content of the <i> tag.
@@ -1699,7 +1700,7 @@ class Sub(Element):
     """
     def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
         """
-        Initialize the Sub element.
+        Initialize the <sub> element.
 
         Args:
             tag_content (Optional[Union[str, 'Element']]): The content of the <sub> tag.
@@ -1864,7 +1865,7 @@ class Th(Element):
     """
     def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
         """
-        Initialize the Th element.
+        Initialize the th element.
 
         Args:
             tag_content (Optional[Union[str, 'Element']]): The content of the <th> tag.
@@ -1924,7 +1925,7 @@ class Tr(Element):
     """
     def __init__(self, tag_content: Optional[Union[str, 'Element']] = "", **props):
         """
-        Initialize the Tr element.
+        Initialize the tr element.
 
         Args:
             tag_content (Optional[Union[str, 'Element']]): The content of the <tr> tag.
