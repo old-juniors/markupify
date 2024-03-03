@@ -9,16 +9,17 @@
 - HTML5 tag creation with classes such as `A()` for `<a></a>`, `Hr()` for `<hr />`, etc.
 - Pretty printing the html content with `pretty()` method.
 - Create multiple html pages using `HTMLPage` class.
+- Create a `HTMLPage` object with specific head and body.
 - Custom tag creation by inheriting `Element` class which declared at `markupify.tags`
+- Generate `*.html` files after creating html content with `write()` method.
 
 
 # Goals
 
-- Generate `*.html` files after creating html content.
 - Create an `CSSPage` class to create some css contents.
 - Generate `*.css` files.
 - Show tag structure like `<body> -> <div> -> h1 -> "This is heading one!"` or something.
-- Create a page object with specific head and body.
+- Build html page with several parts.
 
 
 # Installation
@@ -91,6 +92,22 @@ Output:
 </html>
 ```
 
+Also, you can create the page object with default head and body:
+
+```python
+page = HTMLPage(
+    head=Head(meta, link, title),
+    body=Body(comment, div)
+)
+```
+
+
+If you want to get your html content as `*.html` file, you can use `write()` method:
+
+```python
+page.write("index.html")
+```
+
 
 # Customizing
 
@@ -99,16 +116,16 @@ Output:
 For example, create a double tag:
 
 ```python
-from typing import Optional, Union
+from typing import Optional, Union, Iterable
 from markupify.tags import Element
 
 
 class MyCustomTag(Element):
-    def __init__(self, tag_content: Optional[Union[str, Element]], **props):
+    def __init__(self, *tags: Union[Iterable[str], Iterable[Element]], **props):
         """
         A tag class to represent <my_tag> tag.
         """
-        super().__init__(tag_name="my_tag", tag_content=tag_content, **props)
+        super().__init__(tag_name="my_tag", *tags, **props)
 
 
 my_tag = MyCustomTag("This my custom tag! 🥳")

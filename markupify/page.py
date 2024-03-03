@@ -30,7 +30,10 @@ class HTMLPage:
     """
 
     def __init__(
-        self, head: Optional[Head], body: Optional[Body], lang: str = "en"
+        self,
+        head: Optional[Head] = "",
+        body: Optional[Body] = "",
+        lang: str = "en",
     ):
         """
         Initialize the HTMLPage instance.
